@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard — BBC College AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/static/css/main.css"/>
+<link rel="stylesheet" href="/static/css/admin.css"/>
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- Admin Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <span>🎓</span> BBC Admin
+    </div>
+    <nav class="admin-nav">
+      <button class="admin-nav-item active" data-tab="overview">📊 Overview</button>
+      <button class="admin-nav-item" data-tab="faqs">❓ Manage FAQs</button>
+      <button class="admin-nav-item" data-tab="chats">💬 Chat Logs</button>
+      <button class="admin-nav-item" data-tab="analytics">📈 Analytics</button>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <a href="/" class="admin-back-btn">← Back to Chat</a>
+    </div>
+  </aside>
+
+  <!-- Admin Main -->
+  <main class="admin-main">
+
+    <!-- Overview Tab -->
+    <div class="admin-tab active" id="tab-overview">
+      <div class="admin-header">
+        <h2>Dashboard Overview</h2>
+        <span class="admin-user">👤 {{ user }}</span>
+      </div>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card loading-skeleton"></div>
+        <div class="stat-card loading-skeleton"></div>
+        <div class="stat-card loading-skeleton"></div>
+        <div class="stat-card loading-skeleton"></div>
+      </div>
+      <div class="top-queries-section">
+        <h3>🔥 Top Queries</h3>
+        <div class="queries-list" id="topQueriesList"></div>
+      </div>
+      <div class="admin-actions-row">
+        <button class="admin-btn" id="buildEmbeddingsBtn">🧠 Build/Update Embeddings</button>
+      </div>
+    </div>
+
+    <!-- FAQs Tab -->
+    <div class="admin-tab" id="tab-faqs">
+      <div class="admin-header">
+        <h2>Manage FAQs</h2>
+        <button class="admin-btn" id="addFaqBtn">＋ Add FAQ</button>
+      </div>
+      <div class="search-bar-wrap">
+        <input type="text" id="faqSearch" class="admin-search" placeholder="🔎 Search FAQs..."/>
+        <select id="faqCategoryFilter" class="admin-select">
+          <option value="">All Categories</option>
+          <option value="admissions">Admissions</option>
+          <option value="courses">Courses</option>
+          <option value="fees">Fees</option>
+          <option value="placements">Placements</option>
+          <option value="campus">Campus</option>
+          <option value="faculty">Faculty</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+
+    <!-- Chats Tab -->
+    <div class="admin-tab" id="tab-chats">
+      <div class="admin-header">
+        <h2>Chat Logs</h2>
+      </div>
+      <div class="chat-log-list" id="chatLogList"></div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div class="admin-tab" id="tab-analytics">
+      <div class="admin-header">
+        <h2>Analytics</h2>
+      </div>
+      <div id="analyticsContent"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FAQ Modal -->
+<div class="modal-overlay" id="faqModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add FAQ</h3>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <form id="faqForm">
+      <input type="hidden" id="faqId"/>
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-input" id="faqCategory" required>
+          <option value="admissions">Admissions</option>
+          <option value="courses">Courses</option>
+          <option value="fees">Fees</option>
+          <option value="placements">Placements</option>
+          <option value="campus">Campus</option>
+          <option value="faculty">Faculty</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Question</label>
+        <input type="text" class="form-input" id="faqQuestion" placeholder="Enter question" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Answer</label>
+        <textarea class="form-input" id="faqAnswer" rows="5" placeholder="Enter detailed answer" required></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="modalCancel">Cancel</button>
+        <button type="submit" class="btn-submit">Save FAQ</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/static/js/admin.js"></script>
+</body>
+</html>
